@@ -1,0 +1,80 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+enum Permissao {
+  ADMIN
+  EDITOR
+}
+
+ model Usuario {
+  id           String           @id @default(uuid())
+  nome         String
+  email        String           @unique
+  senhaHash    String
+  permissao    Permissao
+
+  itensCriados ItemDoAcervo[]  @relation("UsuarioCriador")
+}
+
+
+
+
+model ItemDoAcervo {
+  id           String          @id @default(uuid())
+  titulo       String
+  descricao    String
+  dataCriacao  DateTime ?
+  tipoItemId   String
+  categoriaId  String
+  autorId      String ?
+  criadoPorId  String
+  criadoEm     DateTime        @default(now())
+
+  tipoItem     TipoDeItem      @relation(fields: [tipoItemId], references: [id])
+  categoria    Categoria       @relation(fields: [categoriaId], references: [id])
+  autor        Autor ?         @relation(fields: [autorId], references: [id])
+  criadoPor    Usuario         @relation("UsuarioCriador", fields: [criadoPorId], references: [id])
+  arquivos     ArquivoDigital[]
+
+  @@index([titulo])
+  @@index([dataCriacao])
+}
+
+model TipoDeItem {
+  id        String         @id @default(uuid())
+  nome      String         @unique
+  itens     ItemDoAcervo[]
+}
+
+model Categoria {
+  id        String         @id @default(uuid())
+  nome      String         @unique
+  itens     ItemDoAcervo[]
+}
+
+model Autor {
+  id              String         @id @default(uuid())
+  nome            String
+  dataNascimento  DateTime
+  itens           ItemDoAcervo[]
+}
+
+model ArquivoDigital {
+  id        String      @id @default(uuid())
+  itemId    String
+  url       String
+  tipo      String
+
+  item      ItemDoAcervo  @relation(fields: [itemId], references: [id])
+}
+
+
+

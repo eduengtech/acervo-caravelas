@@ -1,0 +1,21 @@
+# Ignorar dependências do backend
+backend/node_modules/
+backend/dist/
+
+# Arquivos do Prisma
+backend/prisma/migrations/
+backend/generated/
+
+# Arquivos de ambiente
+**/.env
+**/.env.local
+
+# Logs
+**/*.log
+**/npm-debug.log*
+
+# IDE e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
