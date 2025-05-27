@@ -8,9 +8,19 @@ import { TipoDeItemModule } from './modules/tipo-de-item/tipo-de-item.module';
 import { CategoriaModule } from './modules/categoria/categoria.module';
 import { AutorModule } from './modules/autor/autor.module';
 import { UserModule } from './modules/user/user.module';
+import { ArquivoDigitalModule } from './modules/arquivoDigital/arquivo-digital.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, ItemDoAcervoModule, TipoDeItemModule, CategoriaModule, AutorModule, UserModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    ItemDoAcervoModule,
+    TipoDeItemModule,
+    CategoriaModule,
+    AutorModule,
+    UserModule,
+    ArquivoDigitalModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

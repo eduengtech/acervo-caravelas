@@ -37,6 +37,7 @@ model ItemDoAcervo {
   autorId      String ?
   criadoPorId  String
   criadoEm     DateTime        @default(now())
+  publicado    Boolean         @default(false)
 
   tipoItem     TipoDeItem      @relation(fields: [tipoItemId], references: [id])
   categoria    Categoria       @relation(fields: [categoriaId], references: [id])

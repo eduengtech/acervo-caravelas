@@ -4,6 +4,6 @@ import { AutorService } from './services/autor.service';
 
 @Module({
   controllers: [AutorController],
-  providers: [AutorService]
+  providers: [AutorService],
 })
 export class AutorModule {}

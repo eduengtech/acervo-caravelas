@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { PassportStrategy } from "@nestjs/passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
+import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { PrismaService } from '../../../modules/prisma/service/prisma.service';
 
 interface JwtPayload {
   sub: string;
@@ -9,7 +10,7 @@ interface JwtPayload {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private prisma: PrismaService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -17,7 +18,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+  // Validação do JWT e inclusão da permissão
   async validate(payload: JwtPayload) {
-    return { userId: payload.sub, email: payload.email };
+    // Buscar usuário no banco de dados com o userId (payload.sub)
+    const user = await this.prisma.usuario.findUnique({
+      where: { id: payload.sub },
+      select: { id: true, email: true, permissao: true },
+    });
+
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    return { userId: user.id, email: user.email, permissao: user.permissao };
   }
 }

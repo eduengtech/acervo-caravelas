@@ -4,6 +4,6 @@ import { TipoDeItemService } from './services/tipo-de-item.service';
 
 @Module({
   controllers: [TipoDeItemController],
-  providers: [TipoDeItemService]
+  providers: [TipoDeItemService],
 })
 export class TipoDeItemModule {}
