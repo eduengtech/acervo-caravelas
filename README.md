@@ -69,11 +69,11 @@ O backend pode ser facilmente hospedado no Railway ou outra plataforma de sua es
 
 
 ## Próximos passos
-*Implementar testes automatizados
+- Implementar testes automatizados
 
-*Finalizar o frontend com Next.js
+- Finalizar o frontend com Next.js
 
-*Refatorar e aplicar CI/CD
+- Refatorar e aplicar CI/CD
 
 
 ## 📝 Licença
