@@ -43,9 +43,9 @@ export class UserController {
     status: 200,
     description: 'Dados do usuário autenticado retornados com sucesso.',
   })
+
   @ApiResponse({ status: 401, description: 'Token inválido ou ausente.' })
-  getMe(@Req() req) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+  Get(@Req() req) {
     return req.user;
   }
 
